@@ -12,6 +12,7 @@
 <script>
 
 export default {
-    props:['movie']
+    props:['movie'],
+    
 }
 </script>

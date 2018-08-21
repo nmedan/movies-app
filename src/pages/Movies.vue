@@ -2,7 +2,8 @@
    <div class="container mt-4">
     <div class="row">
       <div class="col">
-        <AppMovies :movies="movies"/>
+        <AppMovies :movies="filteredMovies"/>
+        <MovieSearch @searchTermUpdated="setSearchTerm"/>
       </div>
     </div>
   </div>
@@ -11,16 +12,19 @@
 <script>
 
 import AppMovies from '../components/AppMovies.vue'
+import MovieSearch from '../components/MovieSearch.vue'
 import {movies} from '../services/Movies'
 
 export default {
     components: {
-        AppMovies
+        AppMovies,
+        MovieSearch
     },
 
     data() {
         return {
-           movies:[]
+           movies:[],
+           term:''
         }
     },
 
@@ -31,6 +35,21 @@ export default {
                 vm.movies = response.data
             })
         })
+    },
+
+    methods: {
+        setSearchTerm(term) {
+             return this.term = term
+        }
+    },
+
+    computed: {
+        filteredMovies() {
+            console.log(this.movies);
+            return this.movies.filter((movie) => {
+                return movie.title.indexOf(this.term) !== -1;
+            })
+        }
     }
 
 }
