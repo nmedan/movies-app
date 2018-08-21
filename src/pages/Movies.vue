@@ -2,8 +2,9 @@
    <div class="container mt-4">
     <div class="row">
       <div class="col">
-        <AppMovies :movies="filteredMovies"/>
-        <MovieSearch @searchTermUpdated="setSearchTerm"/>
+         <MovieSearch @searchTermUpdated="setSearchTerm" />
+        <AppMovies :movies="filteredMovies"/>   
+        
       </div>
     </div>
   </div>
@@ -25,6 +26,7 @@ export default {
         return {
            movies:[],
            term:''
+           
         }
     },
 
@@ -40,7 +42,10 @@ export default {
     methods: {
         setSearchTerm(term) {
              return this.term = term
-        }
+        },
+        
+     
+
     },
 
     computed: {
