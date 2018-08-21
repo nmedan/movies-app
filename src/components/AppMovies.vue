@@ -6,6 +6,7 @@
            </li>
        </ul>
        Selected films: <label >{{selectedFilmsNumber}}</label>
+   
     </div>
     <div v-else>
        <h2>No movies found</h2>
@@ -27,8 +28,13 @@ export default {
         }
     },
     methods: {
-        addSelectedFilm() {
-            this.selectedFilmsNumber++;
+        addSelectedFilm(selected) {
+            if (selected) {
+              this.selectedFilmsNumber++;
+            }
+            else {
+              this.selectedFilmsNumber--;
+            }
         }
     }
 }

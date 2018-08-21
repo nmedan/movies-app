@@ -26,8 +26,12 @@ export default {
         selectFilm() {
             if (!this.filmSelected) {
               this.filmSelected = true;
-              this.$emit('selectedFilm');
+              
             }
+            else {
+                this.filmSelected = false;
+            }
+            this.$emit('selectedFilm', this.filmSelected);
         }
     }
 }
