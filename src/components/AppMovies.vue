@@ -1,19 +1,20 @@
 <template>
     <div class="list-group">
-       <div v-for="(movie, key) in movies" :key="key">
-         <p>Title: {{movie.title}}</p>
-         <p>Director: {{movie.director}} </p>
-         <p>Image URL: {{movie.ImageUrl}}</p>
-         <p>Release date: {{movie.releaseDate}}</p>
-         <p>Genre: {{movie.genre}}</p>
-         <hr/>
-       </div>
+       <ul style="list-style:none">
+          <li v-for="(movie, key) in movies" :key="key">
+             <MovieRow :movie="movie"></MovieRow>
+           </li>
+       </ul>
     </div>
 </template>
 
 <script>
 
+import MovieRow from '../components/MovieRow.vue'
 export default {
-    props:['movies']
+    props:['movies'],
+    components: {
+        MovieRow
+    }
 }
 </script>
