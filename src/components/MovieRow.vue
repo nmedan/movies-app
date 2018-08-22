@@ -1,5 +1,5 @@
 <template>
-       <div v-bind:style="filmSelected? styleBackground : ''">
+       <div v-bind:style="isSelected(movie)? styleBackground : ''">
          <p>Title: {{movie.title}}</p>
          <p>Director: {{movie.director}} </p>
          <p>Image URL: {{movie.ImageUrl}}</p>
@@ -13,10 +13,9 @@
 <script>
 
 export default {
-    props:['movie'],
+    props:['movie', 'selectedFilms'],
     data () {
         return  {
-            filmSelected:false,
             styleBackground: {
                 background:'lightblue'
             }
@@ -24,15 +23,13 @@ export default {
     },
     methods: {
         selectFilm() {
-            if (!this.filmSelected) {
-              this.filmSelected = true;
-              
-            }
-            else {
-                this.filmSelected = false;
-            }
-            this.$emit('selectedFilm', this.filmSelected);
+            this.$emit('selectedFilm', this.movie.id);
+        },
+        
+        isSelected(film) {
+            return this.selectedFilms.indexOf(film) !== -1;
         }
+        
     }
 }
 </script>

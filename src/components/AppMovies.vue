@@ -1,12 +1,19 @@
 <template >
-    <div v-if="movies.length>0" class="list-group">
+    <div v-if="movies.length>0">
+       <div>
        <ul style="list-style:none">
           <li v-for="(movie, key) in movies" :key="key">
-             <MovieRow :movie="movie" @selectedFilm="addSelectedFilm"></MovieRow>
+             <MovieRow :movie="movie" :selectedFilms="selectedFilms" @selectedFilm="addSelectedFilm"></MovieRow>
            </li>
        </ul>
-       Selected films: <label >{{selectedFilmsNumber}}</label>
-   
+       </div>
+      <div>
+         Selected films: <label >{{selectedFilms.length}}</label>
+       </div>
+      <div>
+         <button type="button" class="btn btn-success" @click="selectAll">Select all</button>
+         <button type="button" class="btn btn-danger" @click="deselectAll">Deselect all</button>
+      </div>
     </div>
     <div v-else>
        <h2>No movies found</h2>
@@ -24,17 +31,32 @@ export default {
     },
     data() {
         return {
-            selectedFilmsNumber:0
+            selectedFilms:[],
         }
     },
     methods: {
-        addSelectedFilm(selected) {
-            if (selected) {
-              this.selectedFilmsNumber++;
-            }
+        addSelectedFilm(id) {
+            let film = this.movies.find(film=>film.id === id);
+            if (this.selectedFilms.indexOf(film) === -1) {
+              
+                this.selectedFilms.push(film);
+              
+            }            
             else {
-              this.selectedFilmsNumber--;
+                 let indexOfFilmToUnselect = this.selectedFilms.indexOf(film);
+                 this.selectedFilms.splice(indexOfFilmToUnselect, 1);
             }
+        },
+        
+        selectAll() {
+             this.selectedFilms = [];
+             for (let i = 0; i<this.movies.length; i++) {
+                 this.selectedFilms.push(this.movies[i]);
+             }
+        },
+        
+        deselectAll() {
+             this.selectedFilms = [];
         }
     }
 }
