@@ -2,7 +2,8 @@
        <div v-bind:style="isSelected(movie)? styleBackground : ''">
          <p>Title: {{movie.title}}</p>
          <p>Director: {{movie.director}} </p>
-         <p>Image URL: {{movie.ImageUrl}}</p>
+         <p>Image URL: {{movie.imageUrl}}</p>
+         <p>Duration: {{movie.duration}}</p>
          <p>Release date: {{movie.releaseDate}}</p>
          <p>Genre: {{movie.genre}}</p>
          <button class="btn btn-primary" type="button" @click="selectFilm">Select</button>

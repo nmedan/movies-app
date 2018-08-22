@@ -3,8 +3,8 @@
     <div class="row">
       <div class="col">
          <MovieSearch @searchTermUpdated="setSearchTerm" />
-        <AppMovies :movies="filteredMovies"/>   
-        
+        <AppMovies :movies="filteredMovies" @sortedByName="sortByName" @sortedByNameDesc="sortByNameDesc"
+                   @sortedByDuration="sortByDuration" @sortedByDurationDesc="sortByDurationDesc"/>       
       </div>
     </div>
   </div>
@@ -26,7 +26,6 @@ export default {
         return {
            movies:[],
            term:''
-           
         }
     },
 
@@ -35,8 +34,12 @@ export default {
         .then((response) => {
             next((vm) => {
                 vm.movies = response.data
+                for (let i = 0; i<vm.movies.length; i++){
+                     vm.movies[i].duration = Math.floor(Math.random()*(240-60)+60)                               
+                }
             })
         })
+        
     },
 
     methods: {
@@ -44,13 +47,36 @@ export default {
              return this.term = term
         },
         
-     
-
+        sortByName() {
+            return this.movies.sort(function(a, b) {
+                 console.log('sorted');
+                 return a.title<b.title? -1 : a.title>b.title? 1 : 0;
+            });
+        },
+        
+        sortByNameDesc() {
+             return this.movies.sort(function(a, b) {
+                 console.log('sorted desc');
+                 return a.title<b.title? 1 : a.title>b.title? -1 : 0;
+            });
+        },
+        
+        sortByDuration() {
+            return this.movies.sort(function(a, b) {
+                 return a.duration-b.duration;
+            });
+        },
+        
+         sortByDurationDesc() {
+            return this.movies.sort(function(a, b) {
+                 return b.duration-a.duration;
+            });
+        }
+       
     },
 
     computed: {
         filteredMovies() {
-            console.log(this.movies);
             return this.movies.filter((movie) => {
                 return movie.title.indexOf(this.term) !== -1;
             })

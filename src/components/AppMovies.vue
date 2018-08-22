@@ -14,6 +14,12 @@
          <button type="button" class="btn btn-success" @click="selectAll">Select all</button>
          <button type="button" class="btn btn-danger" @click="deselectAll">Deselect all</button>
       </div>
+      <div>
+        <button type="button"  class="btn btn-primary" @click="sortByName">Sort by name</button>
+        <button type="button" class="btn btn-primary" @click="sortByNameDesc">Sort by name desc</button>
+        <button type="button"  class="btn btn-primary" @click="sortByDuration">Sort by duration</button>
+        <button type="button" class="btn btn-primary" @click="sortByDurationDesc">Sort by duration desc</button>
+      </div>
     </div>
     <div v-else>
        <h2>No movies found</h2>
@@ -57,7 +63,23 @@ export default {
         
         deselectAll() {
              this.selectedFilms = [];
-        }
+        },
+        
+        sortByName() {
+            this.$emit('sortedByName');
+        },
+        
+        sortByNameDesc() {
+             this.$emit('sortedByNameDesc');
+        },
+                                                   
+        sortByDuration() {
+             this.$emit('sortedByDuration');                                   
+        },
+        
+        sortByDurationDesc() {
+             this.$emit('sortedByDurationDesc');                                      
+        }       
     }
 }
 </script>
