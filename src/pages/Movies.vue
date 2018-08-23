@@ -3,8 +3,9 @@
     <div class="row">
       <div class="col">
          <MovieSearch @searchTermUpdated="setSearchTerm" />
-        <AppMovies :movies="filteredMovies" @sortedByName="sortByName" @sortedByNameDesc="sortByNameDesc"
-                   @sortedByDuration="sortByDuration" @sortedByDurationDesc="sortByDurationDesc"/>       
+        <AppMovies :movies="paginatedMovies" :allMovies="movies" @sortedByName="sortByName" @sortedByNameDesc="sortByNameDesc"
+                   @sortedByDuration="sortByDuration" @sortedByDurationDesc="sortByDurationDesc"/>
+        <Paginate :pageNumber ="pageNumber" :pagesLength="pagesLengthNumber" :movies="filteredMovies" @setNextPage="goToNextPage" @setPreviousPage="goToPreviousPage"/>
       </div>
     </div>
   </div>
@@ -14,18 +15,22 @@
 
 import AppMovies from '../components/AppMovies.vue'
 import MovieSearch from '../components/MovieSearch.vue'
+import Paginate from '../components/Paginate.vue'
 import {movies} from '../services/Movies'
 
 export default {
     components: {
         AppMovies,
-        MovieSearch
+        MovieSearch,
+        Paginate
     },
 
     data() {
-        return {
+        return { 
            movies:[],
-           term:''
+           term:'',
+           pageNumber:1,
+           pagesLength:1
         }
     },
 
@@ -35,8 +40,9 @@ export default {
             next((vm) => {
                 vm.movies = response.data
                 for (let i = 0; i<vm.movies.length; i++){
-                     vm.movies[i].duration = Math.floor(Math.random()*(240-60)+60)                               
+                     vm.movies[i].duration = Math.floor(Math.random()*(240-60)+60)    
                 }
+                
             })
         })
         
@@ -44,20 +50,19 @@ export default {
 
     methods: {
         setSearchTerm(term) {
+             this.pageNumber = 1;  
              return this.term = term
         },
         
         sortByName() {
             return this.movies.sort(function(a, b) {
-                 console.log('sorted');
                  return a.title<b.title? -1 : a.title>b.title? 1 : 0;
             });
         },
         
         sortByNameDesc() {
              return this.movies.sort(function(a, b) {
-                 console.log('sorted desc');
-                 return a.title<b.title? 1 : a.title>b.title? -1 : 0;
+                 return a.title>b.title? -1 : a.title<b.title? 1 : 0;
             });
         },
         
@@ -71,15 +76,38 @@ export default {
             return this.movies.sort(function(a, b) {
                  return b.duration-a.duration;
             });
+        },
+        
+        goToNextPage() {
+            if(this.pageNumber<=this.pagesLengthNumber) {
+              this.pageNumber++;
+            }
+        },
+        
+        goToPreviousPage() {
+           if (this.pageNumber>1) {
+           console.log('previous');
+            this.pageNumber--;
+           }
         }
        
     },
 
     computed: {
         filteredMovies() {
-            return this.movies.filter((movie) => {
+             return this.movies.filter((movie) => {
                 return movie.title.indexOf(this.term) !== -1;
+            })        
+        },
+        
+        paginatedMovies() {
+            return this.filteredMovies.filter((movie) => {
+                return Math.floor(this.filteredMovies.indexOf(movie)/5) === this.pageNumber-1;
             })
+        },
+        
+        pagesLengthNumber() {
+            return Math.floor((this.filteredMovies.length-1)/5) + 1;
         }
     }
 

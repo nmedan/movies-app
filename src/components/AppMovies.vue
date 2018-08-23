@@ -31,7 +31,7 @@
 
 import MovieRow from '../components/MovieRow.vue'
 export default {
-    props:['movies'],
+    props:['movies', 'allMovies'],
     components: {
         MovieRow
     },
@@ -56,7 +56,7 @@ export default {
         
         selectAll() {
              this.selectedFilms = [];
-             for (let i = 0; i<this.movies.length; i++) {
+             for (let i = 0; i<this.allMovies.length; i++) {
                  this.selectedFilms.push(this.movies[i]);
              }
         },
