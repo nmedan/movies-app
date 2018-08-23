@@ -57,7 +57,7 @@ export default {
         selectAll() {
              this.selectedFilms = [];
              for (let i = 0; i<this.allMovies.length; i++) {
-                 this.selectedFilms.push(this.movies[i]);
+                 this.selectedFilms.push(this.allMovies[i]);
              }
         },
         
