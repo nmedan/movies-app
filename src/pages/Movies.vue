@@ -39,9 +39,6 @@ export default {
         .then((response) => {
             next((vm) => {
                 vm.movies = response.data
-                for (let i = 0; i<vm.movies.length; i++){
-                     vm.movies[i].duration = Math.floor(Math.random()*(240-60)+60)    
-                }
                 
             })
         })
