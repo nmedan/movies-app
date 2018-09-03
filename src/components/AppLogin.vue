@@ -14,7 +14,7 @@
         <label for="password" class="col-4 col-form-label">Password</label>
         <div class="col-8">
           <div class="input-group">
-            <input type="text" class="form-control here" v-model="userLogin.director">
+            <input type="password" class="form-control here" v-model="userLogin.password">
           </div>
         </div>		
       </div>
@@ -32,8 +32,8 @@ export default {
     data() {
       return {
          userLogin:{
-         email:'',
-         password:''
+           email:'',
+           password:''
          }
       }
     },

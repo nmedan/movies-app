@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export default class AuthService {
     login(email, password) {
-        return axios.post('http://localhost:8000/api/login', {
+        return axios.post('http://localhost:8000/api/auth/login', {
             email, password
         }).then(data => {
             window.localStorage.setItem('loginToken', data.data.token)

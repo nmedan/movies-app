@@ -22,6 +22,7 @@ export default {
         login(userLogin) {
           authService.login(userLogin.email, userLogin.password)
           .then(() => {
+            this.$emit('userAuthenticated', true)
             this.$router.push({ name: 'movies' })
           })
         }      
