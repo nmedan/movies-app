@@ -3,7 +3,8 @@
     "",
     "\\src",
     "\\src\\components",
-    "\\src\\pages"
+    "\\src\\pages",
+    "\\src\\services"
   ],
   "SelectedNode": "\\src\\pages\\Movies.vue",
   "PreviewInSolutionExplorer": false
