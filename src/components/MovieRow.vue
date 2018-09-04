@@ -7,6 +7,7 @@
          <p>Release date: {{movie.releaseDate}}</p>
          <p>Genre: {{movie.genre}}</p>
          <button class="btn btn-primary" type="button" @click="selectFilm">Select</button>
+         <router-link :to="{ name: 'movie-details', params: { id: movie.id }}">Details</router-link>
          <hr/>
        </div>
 </template>

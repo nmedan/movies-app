@@ -12,6 +12,10 @@ export default class Movies {
     add(movie) {
         return axios.post('movies', movie);
     }
+
+    get(id) {
+        return axios.get(`movies/${id}`);
+    }
   }
   
 export const movies = new Movies()

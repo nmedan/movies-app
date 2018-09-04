@@ -5,6 +5,7 @@ import Movies from './pages/Movies.vue'
 import AddMovie from './pages/AddMovie.vue'
 import Login from './pages/Login.vue'
 import Register from './pages/Register.vue'
+import MovieDetails from './pages/MovieDetails.vue'
 
 Vue.config.productionTip = false
 
@@ -16,6 +17,7 @@ const routes = [
   { path: '/add', component: AddMovie },
   { path: '/login', component: Login, name: 'login' },
   { path: '/register', component: Register, name: 'register' },
+  { path: '/movies/:id', component: MovieDetails, name: 'movie-details' },
 ]
 
 const router = new VueRouter({
