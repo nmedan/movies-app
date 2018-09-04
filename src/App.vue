@@ -1,7 +1,7 @@
 <template>
   <div id="app">
       <NavBar :isAuthenticated="isAuthenticated" @userLoggedOut="logout"/>
-       <router-view @userAuthenticated="setAuthenticated"></router-view>
+      <router-view @userAuthenticated="setAuthenticated"></router-view>
   </div>
 </template>
 

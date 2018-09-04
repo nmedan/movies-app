@@ -17,6 +17,7 @@ import AppMovies from '../components/AppMovies.vue'
 import MovieSearch from '../components/MovieSearch.vue'
 import Paginate from '../components/Paginate.vue'
 import {movies} from '../services/Movies'
+import {authService} from '../services/Auth'
 
 export default {
     components: {
@@ -30,17 +31,22 @@ export default {
            movies:[],
            term:'',
            pageNumber:1,
-           pagesLength:1
+           pagesLength:1,
+           isAuthenticated:authService.isAuthenticated()
         }
     },
 
     beforeRouteEnter (to, from, next) {
         movies.getAll()
         .then((response) => {
-            next((vm) => {
-                vm.movies = response.data
-                
-            })
+            if (from.isAuthenticated) {
+               next((vm) => {
+                   vm.movies = response.data            
+               })
+            }
+            else {
+               next('/login')            
+            }
         })
         
     },
