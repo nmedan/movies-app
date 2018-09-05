@@ -23,12 +23,14 @@
           <button name="submit" type="submit" class="btn btn-success">Submit</button>
         </div>
       </div>
+     <p class="alert alert-danger" role="alert" v-if="error">The username or password is incorrect</p>
     </form>
     </div>
 </template>
 
 <script>
 export default {
+    props:['error'],
     data() {
       return {
          userLogin:{

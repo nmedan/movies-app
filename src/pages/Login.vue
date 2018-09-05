@@ -2,7 +2,7 @@
    <div class="container mt-4">
     <div class="row">
       <div class="col">
-         <AppLogin @loggedOn="login" />
+         <AppLogin :error="error" @loggedOn="login" />
       </div>
     </div>
   </div>
@@ -17,6 +17,12 @@ export default {
     components: {
         AppLogin
     },
+    
+    data() {
+       return {
+         error:''
+       }
+    },
 
     methods: {
         login(userLogin) {
@@ -24,7 +30,7 @@ export default {
           .then(() => {
             this.$emit('userAuthenticated')
             this.$router.push({ name: 'movies' })
-          })
+          }).catch(error => {this.error = error.response.data.error})
         }      
     }
 

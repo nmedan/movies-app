@@ -35,18 +35,15 @@ export default {
            isAuthenticated:authService.isAuthenticated()
         }
     },
-
-    beforeRouteEnter (to, from, next) {
+    
+     beforeRouteEnter (to, from, next) {
         movies.getAll()
         .then((response) => {
-            if (from.isAuthenticated) {
                next((vm) => {
+                   
                    vm.movies = response.data            
                })
-            }
-            else {
-               next('/login')            
-            }
+
         })
         
     },
